@@ -1,0 +1,19 @@
+.header {
+    font-size: 30px;
+    color:aquamarine;
+}
+body {
+    background-color: azure;
+}
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.questions {
+    background-color: bisque;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 20px;
+}
