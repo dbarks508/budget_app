@@ -17,3 +17,23 @@ body {
     margin-right: 20%;
     padding: 20px;
 }
+#loginBox {
+    margin-left: 25%;
+    margin-right: auto;
+    width: 150px;
+    display: flex;
+    row-gap: 20px;
+    flex-direction: column;
+}
+#loginItem1 {
+    width: 150px;
+    height: 35px;
+}
+#loginItem2 {
+    width: 150px;
+    height: 35px;
+}  
+#loginBtn {
+    width: 75px;
+
+} 

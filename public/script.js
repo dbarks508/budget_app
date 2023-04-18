@@ -2,19 +2,22 @@
 const questionElement = document.getElementById("questionElement");
 const answerElement = document.getElementById("answerElement");
 const submitButton = document.getElementById("submitButton");
+const loginButton = document.getElementById("loginButton");
 let count = 1; 
 const entryList = [];
 let entry;
 
-function Person (name, income, rent, car, insurance, subscriptions, phone) {
+class Person {
+    constructor(name, income, rent, car, insurance, subscriptions, phone) {
 
-    this.name;
-    this.income = income;
-    this.rent = rent;
-    this.car = car;
-    this.insurance = insurance;
-    this.subscriptions = subscriptions;
-    this.phone = phone;
+        this.name;
+        this.income = income;
+        this.rent = rent;
+        this.car = car;
+        this.insurance = insurance;
+        this.subscriptions = subscriptions;
+        this.phone = phone;
+    }
 }
 
 // changes questions for income and expenses
@@ -72,12 +75,28 @@ const chooseSlider = (count) => {
     
 }
 
-const eventListeners = () => {
+const postLogin = () => {
+    fetch(`http://${port}/transactions`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+     // stuuufffff
+    }),
+  })
+    .then((response) => response.json())
+    .then((response) => console.log(JSON.stringify(response)));
+}
 
+const eventListeners = () => {
     if (submitButton.addEventListener) { 
         submitButton.addEventListener("click", changeQuestion, false); 
     }
-    
+    if (loginButton.addEventListener) {
+        loginButton.addEventListener("click", postLogin, false);
+    }
 }
 
 const init = () => {
