@@ -1,4 +1,3 @@
-import { Client } from "ssh2";
 import mysql from "mysql2";
 import dotenv from "dotenv";
 dotenv.config();
@@ -7,7 +6,7 @@ function connectionQuery(sqlQuery) {
   // eslint-disable-next-line no-unused-vars
   return new Promise(function (resolve, reject) {
     let con = mysql.createConnection({
-      host: "localhost",
+      host: "127.0.0.1",
       user: "root",
       password: "Cooliest7!",
       database: "budget_app",
