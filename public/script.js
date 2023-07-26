@@ -1,8 +1,14 @@
 // global variables
+// question and answer
 const questionElement = document.getElementById("questionElement");
 const answerElement = document.getElementById("answerElement");
 const submitButton = document.getElementById("submitButton");
 const loginButton = document.getElementById("loginButton");
+const fetchDataButton = document.getElementById("fetchdata");
+//slider
+const sliderButton = document.getElementById("sliderButton");
+const sliderDisplay = document.getElementById("sliderDisplay");
+//misc
 let count = 1; 
 const entryList = [];
 
@@ -64,10 +70,10 @@ const changeQuestion = () => {
             questionElement.innerHTML = 'Thank you for your input!';
             answerElement.value = "";
     }
-}
+} // end function changeQuestion()
 
-const chooseSlider = (count) => {
-    
+const displayValue = () => {
+    answerElement.value = sliderButton.value;
 }
 
 async function addExpense(user) {
@@ -93,12 +99,32 @@ async function addExpense(user) {
         .then((response) => console.log(JSON.stringify(response)));
 }
 
+async function getData(){
+    const dataContainer = document.getElementById("data");
+    console.log("in getData");
+
+    const responce = await fetch( "http://localhost:3000/data", {
+        method: "GET",
+        headers: {
+            Accept: "applicaton/json",
+            "Content-Type": "application/json",
+        }
+    }); 
+
+    const data = responce.json();
+    console.log(data);
+    dataContainer.textContent = data[0].fname;
+}
+
 const eventListeners = () => {
     if (submitButton.addEventListener) { 
         submitButton.addEventListener("click", changeQuestion, false); 
     }
-    if (loginButton.addEventListener) {
-        loginButton.addEventListener("click", postLogin, false);
+    if (sliderButton.addEventListener) {
+        sliderButton.addEventListener("change", displayValue, false);
+    }
+    if(fetchDataButton.addEventListener) {
+        fetchDataButton.addEventListener("click", getData, false);
     }
 }
 

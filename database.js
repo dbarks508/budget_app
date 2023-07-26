@@ -15,3 +15,10 @@ export async function addExpense(fname, income, rent, car, insurance, subscripti
     );
     return result;
 }
+
+export async function getExpenses() {
+    const result = await connectionQuery(
+        `SELECT * FROM user_expense;`
+    );
+    return result;
+}

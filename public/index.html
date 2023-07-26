@@ -17,10 +17,20 @@
         
             <p id="questionElement">First name: </p>
             <input type="text" id="answerElement">
+            <div class="slideContainer">
+                <label for="range">$0</label>
+                <input type="range" min="0" max="500" value="250" class="slider" id="sliderButton">
+                <label for="range">$500</label> <br>
+                <label for="range" id="sliderDisplay"></label>
+            </div>
             <button id="submitButton">Enter</button>
         
     </div>
-    <a href="/login.html">To login page</a>
+    <a href="/login.html">To login page</a><br>
+    <a href="/data.html">To data page</a>
+    <div id="bottomContainer">
+        <div id="jsonData"></div>
+    </div>
 <script src="script.js"></script>
 </body>
 </html>

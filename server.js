@@ -4,7 +4,7 @@ import express, {json} from 'express';
 const app = express();
 app.use(express.json());
 
-import { addUser, addExpense } from './database.js';
+import { addUser, addExpense, getExpenses } from './database.js';
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -20,6 +20,11 @@ app.get('/', (req, res) => {
 
 app.get('/login', (req, res) => {
     res.render('login');
+});
+
+app.get('/data', async (req, res) => {
+    const responce = await getExpenses();
+    res.send(responce);
 });
 
 // POST routes

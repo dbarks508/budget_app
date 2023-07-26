@@ -35,5 +35,10 @@ body {
 }  
 #loginBtn {
     width: 75px;
-
 } 
+.slideContainer {
+    width: 100%;
+}
+.slider {
+    width: 50%;
+}
