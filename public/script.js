@@ -2,11 +2,11 @@
 // question and answer
 const questionElement = document.getElementById("questionElement");
 const answerElement = document.getElementById("answerElement");
-const submitButton = document.getElementById("submitButton");
+
 const loginButton = document.getElementById("loginButton");
-const fetchDataButton = document.getElementById("fetchdata");
+const fetchDataButton = document.getElementById("fetchData");
 //slider
-const sliderButton = document.getElementById("sliderButton");
+
 const sliderDisplay = document.getElementById("sliderDisplay");
 //misc
 let count = 1; 
@@ -77,12 +77,11 @@ const displayValue = () => {
 }
 
 async function addExpense(user) {
-    console.log(user.fname, user.income, user.rent, user.car, user.insurance, user.subscriptions, user.phone);
 
     fetch("http://localhost:3000/expense", {
         method: "POST",
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -99,34 +98,22 @@ async function addExpense(user) {
         .then((response) => console.log(JSON.stringify(response)));
 }
 
-async function getData(){
-    const dataContainer = document.getElementById("data");
-    console.log("in getData");
-
-    const responce = await fetch( "http://localhost:3000/data", {
-        method: "GET",
-        headers: {
-            Accept: "applicaton/json",
-            "Content-Type": "application/json",
-        }
-    }); 
-
-    const data = responce.json();
-    console.log(data);
-    dataContainer.textContent = data[0].fname;
-}
-
 const eventListeners = () => {
-    if (submitButton.addEventListener) { 
-        submitButton.addEventListener("click", changeQuestion, false); 
+    const submitButton = document.getElementById("submitButton");
+    if (submitButton) {
+      submitButton.addEventListener("click", changeQuestion, false);
+    } else {
+      console.error("submitButton not found in the DOM.");
     }
-    if (sliderButton.addEventListener) {
-        sliderButton.addEventListener("change", displayValue, false);
+  
+    const sliderButton = document.getElementById("sliderButton");
+    if (sliderButton) {
+      sliderButton.addEventListener("change", displayValue, false);
+    } else {
+      console.error("sliderButton not found in the DOM.");
     }
-    if(fetchDataButton.addEventListener) {
-        fetchDataButton.addEventListener("click", getData, false);
-    }
-}
+  };
+  
 
 const init = () => {
     eventListeners();

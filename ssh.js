@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 dotenv.config();
 
 function connectionQuery(sqlQuery) {
-  // eslint-disable-next-line no-unused-vars
   return new Promise(function (resolve, reject) {
     let con = mysql.createConnection({
       host: "127.0.0.1",

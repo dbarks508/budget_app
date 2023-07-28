@@ -42,3 +42,6 @@ body {
 .slider {
     width: 50%;
 }
+#data {
+    margin-left: 15%;
+}

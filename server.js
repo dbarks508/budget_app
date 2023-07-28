@@ -23,8 +23,8 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/data', async (req, res) => {
-    const responce = await getExpenses();
-    res.send(responce);
+    const response = await getExpenses();
+    res.send(response);
 });
 
 // POST routes
