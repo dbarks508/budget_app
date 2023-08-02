@@ -2,11 +2,19 @@ import dotenv from "dotenv";
 dotenv.config();
 import connectionQuery from "./ssh.js";
 
-export async function addUser(username, password) {
-    const result = connectionQuery(
-        `INSERT INTO login VALUES (${username}, ${password});`
+export async function addUser(username, password, salt) {
+    let result = connectionQuery(
+        `SELECT * from login WHERE username = '${username}';`
     );
-    return result;
+        
+    if (result.length > 0) {
+        return false;
+    } else {
+        result = connectionQuery(
+            `INSERT INTO login (username, password, salt) VALUES ('${username}', '${password}', '${salt}');`
+        );
+        return result;
+    }
 }
 
 export async function addExpense(fname, income, rent, car, insurance, subscriptions, phone) {
