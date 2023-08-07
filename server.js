@@ -37,25 +37,36 @@ app.get('/data', async (req, res) => {
 });
 
 // POST routes
+app.post('/expense', async (req, res) => {
+    const {fname, income, rent, car, insurance, subscriptions, phone} = req.body;
+    const expense = await addExpense(fname, income, rent, car, insurance, subscriptions, phone);
+    res.send(expense);
+});
+
+// add user to db
 app.post('/addUser', async (req, res) => {
     const username = req.body.username;
     const salt = bcrypt.genSaltSync(10);
     const password = await bcrypt.hash(req.body.password, salt);
 
     const result = await addUser(username, password, salt);
-    if(result === false){
-        res.send("User already exists");
+    if(result == false){
+        console.log('user already exists');
+        res.json(false);
     } else {
         req.session.loggedin = true;
         req.session.username = username;
+        res.json(true);
     }
 });
 
-app.post('/expense', async (req, res) => {
-    const {fname, income, rent, car, insurance, subscriptions, phone} = req.body;
-    const expense = await addExpense(fname, income, rent, car, insurance, subscriptions, phone);
-    res.send(expense);
-});
+// check username and login from db
+app.post('/userLogin', async (req, res) => {
+    const username = req.body.username;
+    const password = req.body.username;
+})
+
+
 
 app.listen(3000, () => {
     console.log('app listening');

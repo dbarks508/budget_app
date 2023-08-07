@@ -4,7 +4,8 @@ const passwordElement = document.getElementById("loginItem2");
 
 const addUser = () => {
     let username = usernameElement.value;
-    let password = passwordElement.value
+    let password = passwordElement.value;
+    let errorDiv = document.getElementById("errorDiv");
     
     fetch("http://localhost:3000/addUser", {
         method: "POST",
@@ -14,18 +15,43 @@ const addUser = () => {
         },
         body: JSON.stringify({
             username: username,
-            password: password
+            password: password,
         }),
       })
         .then((response) => response.json())
-        .then((response) => console.log(JSON.stringify(response)));
+        .then((success) => {
+            if(!success) {
+                errorDiv.innerHTML = "User already exists";
+            } else {
+                errorDiv.innerHTML = "User successfully added";
+            }
+        })
+        .catch((error) => {
+            console.error("Fetch error: ", error);
+        });
 
         usernameElement.value = "";
         passwordElement.value = "";
 }
 
 const loginUser = () => {
-    //login js
+    let username = usernameElement.value;
+    let password = passwordElement.value;
+
+    fetch("http://localhost:3000/userlogin", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            username: username,
+            password: password,
+        }),
+      })
+        .then((response) => response.json())
+
+
 }
 
 

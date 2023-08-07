@@ -3,14 +3,14 @@ dotenv.config();
 import connectionQuery from "./ssh.js";
 
 export async function addUser(username, password, salt) {
-    let result = connectionQuery(
+    let result = await connectionQuery(
         `SELECT * from login WHERE username = '${username}';`
     );
         
     if (result.length > 0) {
         return false;
     } else {
-        result = connectionQuery(
+        result = await connectionQuery(
             `INSERT INTO login (username, password, salt) VALUES ('${username}', '${password}', '${salt}');`
         );
         return result;
