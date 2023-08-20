@@ -15,7 +15,7 @@ async function getData(){
     }
     // store json response in variable named data
         const data = await response.json();
-        let index = 1
+        let index = 1;
         let name = data[index].fname;
         let income = data[index].income;
         let rent = data[index].rent;

@@ -1,11 +1,15 @@
+const loginButton = document.getElementById("loginButton");
+const registerButton = document.getElementById("registerButton");
+
 const usernameElement = document.getElementById("loginItem1");
 const passwordElement = document.getElementById("loginItem2");
+const errorDiv = document.getElementById("errorDiv");
 
 
 const addUser = () => {
     let username = usernameElement.value;
     let password = passwordElement.value;
-    let errorDiv = document.getElementById("errorDiv");
+
     
     fetch("http://localhost:3000/addUser", {
         method: "POST",
@@ -38,7 +42,7 @@ const loginUser = () => {
     let username = usernameElement.value;
     let password = passwordElement.value;
 
-    fetch("http://localhost:3000/userlogin", {
+    fetch("http://localhost:3000/userLogin", {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -50,27 +54,30 @@ const loginUser = () => {
         }),
       })
         .then((response) => response.json())
-
-
+        .then((success) => {
+            if (!success) {
+                errorDiv.innerHTML = "Incorrect username/password";
+            } else {
+                errorDiv.innerHTML = "User authenticated";
+                window.location.href = "/data.html";
+            }
+        })
 }
 
 
 
 const eventListeners = () => {
-    let loginButton = document.getElementById("loginButton");
     if(loginButton.addEventListener){
         loginButton.addEventListener("click", loginUser, false);
     }
     
-    let registerButton = document.getElementById("registerButton");
     if(registerButton.addEventListener){
-        registerButton.addEventListener("click", addUser, false)
+        registerButton.addEventListener("click", addUser, false);
     }
 }
 
 const init = () => {
     eventListeners();
-    
 }
 
 // event listener

@@ -2,7 +2,7 @@ import path from 'path';
 import bcrypt from "bcrypt";
 import session from "express-session";
 import { fileURLToPath } from 'url';
-import express, {json} from 'express';
+import express, {json, response} from 'express';
 const app = express();
 app.use(express.json());
 app.use(
@@ -13,25 +13,31 @@ app.use(
     })
   );
 
-import { addUser, addExpense, getExpenses } from './database.js';
+import { addUser, addExpense, getExpenses, checkUsernamePassword } from './database.js';
 import dotenv from "dotenv";
+import { request } from 'http';
 dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 
 // GET routes
 app.get('/', (req, res) => {
-    res.render('index');
+    // res.render('index');
+    res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
 app.get('/login', (req, res) => {
-    res.render('login');
+    // res.render('login');
+    res.sendFile(path.join(__dirname, "public/login.html"));
 });
 
 app.get('/data', async (req, res) => {
+    // let username = req.session.username;
+    // console.log(req.session.username);
+
     const response = await getExpenses();
     res.send(response);
 });
@@ -63,7 +69,35 @@ app.post('/addUser', async (req, res) => {
 // check username and login from db
 app.post('/userLogin', async (req, res) => {
     const username = req.body.username;
-    const password = req.body.username;
+    const password = req.body.password;
+
+    if (username && password){
+        (async function () {
+            try {
+                const results = await checkUsernamePassword(username);
+                const saltedPassword = await bcrypt.hash(password, results[0].salt);
+                await passwordCheck(password, saltedPassword, req, res);
+            } catch (error) {
+                console.log(error);
+            }
+        })();
+    } else {
+        res.json(false);
+    } // end if-else
+
+    async function passwordCheck(inputPassword, databasePassword, req, res){
+        console.log(inputPassword, databasePassword);
+        let result = await bcrypt.compare(inputPassword, databasePassword);
+        console.log(result);
+        if (result) {
+            // authenticate user
+            req.session.loggedIn = true;
+            req.session.username = username;
+            res.json(true);
+        } else {
+            res.json(false);
+        }
+    }
 })
 
 
