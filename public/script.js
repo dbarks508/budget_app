@@ -78,6 +78,11 @@ const displayValue = () => {
 
 async function addExpense(user) {
 
+    let fname = user.fname;
+    sessionStorage['fname'] = fname;
+    var readVal = sessionStorage['fname'];
+    console.log(readVal);
+
     fetch("http://localhost:3000/expense", {
         method: "POST",
         headers: {
@@ -95,7 +100,10 @@ async function addExpense(user) {
         }),
       })
         .then((response) => response.json())
-        .then((response) => console.log(JSON.stringify(response)));
+        .then((response) => console.log(JSON.stringify(response)))
+        .then((responce) => {
+            window.location.href = "/login.html";
+        });
 }
 
 const eventListeners = () => {

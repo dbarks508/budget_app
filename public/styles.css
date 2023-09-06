@@ -49,3 +49,7 @@ a {
     size: 30px;
     text-decoration: none;
 }
+#chartContainer {
+    width: 50%;
+    margin: auto auto;
+}

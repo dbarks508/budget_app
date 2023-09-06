@@ -11,9 +11,23 @@
     <div id="dataContainer" class="content">
     <h1>Your personalized Budget</h1>
     </div>
+    <div id="data"></div>
 
-    <div id="data">
+    <div id="chartContainer">
+        <h2>Summary of your Monthly Spending</h2>
+            <canvas id="myChart1"></canvas>
+        <h2>Ideal Allocation of Monthly Income VS Actual</h2>
+            <canvas id="myChart2"></canvas>
+        <div id="chartInfo">
+            * Wants and saving in red are projected based on whats left over after needs are accounted for.
+                Increase income or decrease needs where applicable in order to have more money for wants and savings.
+        </div>
     </div>
+
+
+
+
 <script src="data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 </html>

@@ -5,7 +5,18 @@ const usernameElement = document.getElementById("loginItem1");
 const passwordElement = document.getElementById("loginItem2");
 const errorDiv = document.getElementById("errorDiv");
 
+// add first name as username 
+// const validateUsername = () => {
+//     let username  = sessionStorage['fname'];
+//     console.log(username);
 
+//     if(username !== undefined){
+//         usernameElement.value = username;
+//         usernameElement.disabled = true;
+//     } 
+// }
+
+// add a new user to the db
 const addUser = () => {
     let username = usernameElement.value;
     let password = passwordElement.value;
@@ -38,9 +49,14 @@ const addUser = () => {
         passwordElement.value = "";
 }
 
+// authenticate user from the db
 const loginUser = () => {
     let username = usernameElement.value;
     let password = passwordElement.value;
+
+    sessionStorage['fname'] = username;
+    var readVal = sessionStorage['fname'];
+    console.log(readVal);
 
     fetch("http://localhost:3000/userLogin", {
         method: "POST",
@@ -74,10 +90,12 @@ const eventListeners = () => {
     if(registerButton.addEventListener){
         registerButton.addEventListener("click", addUser, false);
     }
+
 }
 
 const init = () => {
     eventListeners();
+    // validateUsername();
 }
 
 // event listener

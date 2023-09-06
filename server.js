@@ -93,6 +93,7 @@ app.post('/userLogin', async (req, res) => {
             // authenticate user
             req.session.loggedIn = true;
             req.session.username = username;
+            console.log(req.session.username);
             res.json(true);
         } else {
             res.json(false);
