@@ -71,7 +71,7 @@ async function fetchData() {
         const data = await response.json();
         console.log("the data: ", data);
         let index = data.findIndex(item => item.fname === sessionName);
-        console.log("the index of the usernmae is: " + index);
+        console.log("the index of the username is: " + index);
 
 
         // let index = 11;
@@ -128,7 +128,7 @@ const makeChart = (income, rent, car, insurance, subscriptions, phone) => {
     let add = false;
     if (overage < 0) {
         overage = Math.abs(overage);
-        add = false;
+        add = true;
     }
     console.log(overage);
 

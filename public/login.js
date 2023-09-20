@@ -5,16 +5,19 @@ const usernameElement = document.getElementById("loginItem1");
 const passwordElement = document.getElementById("loginItem2");
 const errorDiv = document.getElementById("errorDiv");
 
-// add first name as username 
-// const validateUsername = () => {
-//     let username  = sessionStorage['fname'];
-//     console.log(username);
 
-//     if(username !== undefined){
-//         usernameElement.value = username;
-//         usernameElement.disabled = true;
-//     } 
-// }
+// add first name as username 
+const validateUsername = () => {
+    let username  = sessionStorage['fname'];
+    console.log('the sessionstorage username is: ', username);
+
+    if(username !== undefined){
+        usernameElement.value = username;
+        usernameElement.disabled = true;
+    } else {
+        usernameElement.disabled = false;
+    }
+}
 
 // add a new user to the db
 const addUser = () => {
@@ -37,8 +40,10 @@ const addUser = () => {
         .then((success) => {
             if(!success) {
                 errorDiv.innerHTML = "User already exists";
+                usernameElement.disabled = false;
             } else {
                 errorDiv.innerHTML = "User successfully added";
+                usernameElement.disabled = false;
             }
         })
         .catch((error) => {
@@ -95,7 +100,7 @@ const eventListeners = () => {
 
 const init = () => {
     eventListeners();
-    // validateUsername();
+    validateUsername();
 }
 
 // event listener
